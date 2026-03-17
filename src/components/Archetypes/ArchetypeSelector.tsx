@@ -16,7 +16,7 @@ export function ArchetypeSelector({ visibleArchetypes, onToggle }: ArchetypeSele
             key={id}
             onClick={() => onToggle(id)}
             className={`
-              flex items-center gap-1.5 px-2 py-0.5 rounded text-[9px] font-medium
+              flex items-center gap-1.5 px-1.5 md:px-2 py-0.5 rounded text-[9px] font-medium
               transition-all duration-200 cursor-pointer
               ${active
                 ? 'bg-white/10 text-white/80'
@@ -31,7 +31,7 @@ export function ArchetypeSelector({ visibleArchetypes, onToggle }: ArchetypeSele
                 opacity: active ? 1 : 0.3,
               }}
             />
-            {config.shortName}
+            <span className="hidden md:inline">{config.shortName}</span>
           </button>
         )
       })}

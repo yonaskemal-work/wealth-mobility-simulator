@@ -260,7 +260,7 @@ export function ArchetypeStoryModal({ archetypeId, selectedYear, onClose }: Arch
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="w-[340px] max-h-[85vh] bg-[#0f172a] border border-white/15 rounded-2xl shadow-2xl overflow-y-auto"
+        className="w-[min(340px,calc(100vw-32px))] max-h-[85vh] bg-[#0f172a] border border-white/15 rounded-2xl shadow-2xl overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

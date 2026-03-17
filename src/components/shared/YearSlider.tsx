@@ -7,7 +7,7 @@ export function YearSlider({ year, onChange }: YearSliderProps) {
   const age = 24 + year
 
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-4 py-2 bg-[#0f172a]/80 backdrop-blur-md rounded-full border border-white/10">
+    <div className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 z-20 items-center gap-3 px-4 py-2 bg-[#0f172a]/80 backdrop-blur-md rounded-full border border-white/10">
       <span className="text-[10px] font-medium text-white/50 whitespace-nowrap">Year 1</span>
       <input
         type="range"

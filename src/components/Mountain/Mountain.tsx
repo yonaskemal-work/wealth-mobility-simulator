@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { usePolicyStore, type PolicyState } from '../../models/policyState'
 import { ARCHETYPE_CONFIGS, type ArchetypeId, ARCHETYPE_ORDER } from '../../data/archetypeConfigs'
@@ -77,6 +77,12 @@ interface MountainProps {
 export function Mountain({ visibleArchetypes, selectedYear, onClimberClick }: MountainProps) {
   const policy = usePolicyStore()
   const loopholes = useMemo(() => getLoopholeStatus(policy), [policy])
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
 
   const projections = useMemo(() => {
     const result: Record<ArchetypeId, ReturnType<typeof projectWealth>> = {} as any
@@ -118,7 +124,7 @@ export function Mountain({ visibleArchetypes, selectedYear, onClimberClick }: Mo
   return (
     <div className="absolute inset-0 overflow-hidden">
       <svg
-        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        viewBox={isMobile ? '50 0 600 520' : `0 0 ${VIEW_W} ${VIEW_H}`}
         className="absolute bottom-0 left-0 w-full"
         style={{ height: '92%' }}
         preserveAspectRatio="xMidYMax meet"
@@ -244,9 +250,12 @@ export function Mountain({ visibleArchetypes, selectedYear, onClimberClick }: Mo
               const snapshot = snapshots[yearIndex]
               const wealth = snapshot?.wealth ?? 0
               const cy = wealthToY(wealth)
-              // Use the snapshot's current track (changes dynamically with life events)
-              const currentTrack = snapshot?.track ?? config.primaryTrack
-              const isCapital = currentTrack === 'capital' || currentTrack === 'crossover'
+              // For 'crossover' archetypes, follow the dynamic snapshot track (they switch sides)
+              // For fixed 'labor' or 'capital' archetypes, always show on their primary track side
+              const displayTrack = config.primaryTrack === 'crossover'
+                ? (snapshot?.track ?? 'labor')
+                : config.primaryTrack
+              const isCapital = displayTrack === 'capital' || displayTrack === 'crossover'
               const cx = isCapital ? getCapitalPathX(cy) : getLaborPathX(cy)
               return { id, cx, cy, wealth, config, isCapital }
             })
@@ -301,16 +310,18 @@ export function Mountain({ visibleArchetypes, selectedYear, onClimberClick }: Mo
           })()}
         </g>
 
-        {/* ===== LAYER 5: UI overlays (narrative, legend — topmost) ===== */}
-        <g className="layer-ui-overlays">
-          <YearNarrative
-            selectedYear={selectedYear}
-            projections={projections}
-            visibleArchetypes={visibleArchetypes}
-            policy={policy}
-          />
-          <MountainLegend />
-        </g>
+        {/* ===== LAYER 5: UI overlays (narrative, legend — topmost, desktop only) ===== */}
+        {!isMobile && (
+          <g className="layer-ui-overlays">
+            <YearNarrative
+              selectedYear={selectedYear}
+              projections={projections}
+              visibleArchetypes={visibleArchetypes}
+              policy={policy}
+            />
+            <MountainLegend />
+          </g>
+        )}
       </svg>
     </div>
   )

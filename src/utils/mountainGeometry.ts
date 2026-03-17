@@ -25,8 +25,8 @@ export function getCapitalPathX(y: number): number {
 export function wealthToY(wealth: number): number {
   if (wealth <= 0) return MOUNTAIN_BASE_Y
   const logWealth = Math.log10(Math.max(wealth, 1))
-  const logMin = Math.log10(10_000)          // $10K = bottom
-  const logMax = Math.log10(10_000_000_000)  // $10B = peak (was $1B - caused clamping)
+  const logMin = Math.log10(10_000)       // $10K = bottom
+  const logMax = Math.log10(1_000_000_000) // $1B = peak
   const t = Math.max(0, Math.min(1, (logWealth - logMin) / (logMax - logMin)))
   return MOUNTAIN_BASE_Y - t * (MOUNTAIN_BASE_Y - MOUNTAIN_PEAK_Y)
 }

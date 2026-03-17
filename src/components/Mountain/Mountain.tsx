@@ -21,7 +21,6 @@ const WEALTH_TIERS = [
   { label: '$10M', value: 10_000_000 },
   { label: '$100M', value: 100_000_000 },
   { label: '$1B', value: 1_000_000_000 },
-  { label: '$10B', value: 10_000_000_000 },
 ].map(tier => ({ ...tier, y: wealthToY(tier.value) }))
 
 const LABOR_CHECKPOINTS = [

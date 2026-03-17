@@ -16,12 +16,13 @@ import {
 } from '../../utils/mountainGeometry'
 
 const WEALTH_TIERS = [
-  { label: '$100K', value: 100_000, y: 420 },
-  { label: '$1M', value: 1_000_000, y: 330 },
-  { label: '$10M', value: 10_000_000, y: 230 },
-  { label: '$100M', value: 100_000_000, y: 130 },
-  { label: '$1B', value: 1_000_000_000, y: 55 },
-]
+  { label: '$100K', value: 100_000 },
+  { label: '$1M', value: 1_000_000 },
+  { label: '$10M', value: 10_000_000 },
+  { label: '$100M', value: 100_000_000 },
+  { label: '$1B', value: 1_000_000_000 },
+  { label: '$10B', value: 10_000_000_000 },
+].map(tier => ({ ...tier, y: wealthToY(tier.value) }))
 
 const LABOR_CHECKPOINTS = [
   { id: 'income-tax', label: 'Income Tax', y: 375, policyKey: 'incomeTaxBrackets' as const },
@@ -240,9 +241,12 @@ export function Mountain({ visibleArchetypes, selectedYear, onClimberClick }: Mo
               const config = ARCHETYPE_CONFIGS[id]
               const snapshots = projections[id]
               const yearIndex = Math.min(selectedYear - 1, snapshots.length - 1)
-              const wealth = snapshots[yearIndex]?.wealth ?? 0
+              const snapshot = snapshots[yearIndex]
+              const wealth = snapshot?.wealth ?? 0
               const cy = wealthToY(wealth)
-              const isCapital = config.primaryTrack === 'capital' || config.primaryTrack === 'crossover'
+              // Use the snapshot's current track (changes dynamically with life events)
+              const currentTrack = snapshot?.track ?? config.primaryTrack
+              const isCapital = currentTrack === 'capital' || currentTrack === 'crossover'
               const cx = isCapital ? getCapitalPathX(cy) : getLaborPathX(cy)
               return { id, cx, cy, wealth, config, isCapital }
             })

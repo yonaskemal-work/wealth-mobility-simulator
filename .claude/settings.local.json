@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create vite@latest . -- --template react-ts)",
+      "Bash(npm create vite@latest temp-project -- --template react-ts)",
+      "Bash(mv temp-project/* temp-project/.* .)",
+      "Bash(rmdir temp-project)",
+      "Bash(npm install)",
+      "Bash(npm install zustand framer-motion tailwindcss @tailwindcss/vite)",
+      "Bash(npm install zustand framer-motion tailwindcss @tailwindcss/vite --legacy-peer-deps)",
+      "Bash(mkdir -p src/components/Mountain src/components/Controls src/components/Outcomes src/components/Archetypes src/components/shared src/models src/data src/styles)",
+      "Bash(rm -f src/App.css src/assets/hero.png src/assets/react.svg src/assets/vite.svg)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(npx vite build)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(lsof -ti :5173)",
+      "Bash(xargs kill -9)",
+      "WebSearch",
+      "Bash(lsof -ti:5199)"
+    ]
+  }
+}

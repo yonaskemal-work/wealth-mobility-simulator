@@ -19,7 +19,7 @@ export function YearNarrative({ selectedYear, projections, visibleArchetypes, po
   )
 
   return (
-    <foreignObject x={12} y={65} width={215} height={110}>
+    <foreignObject x={243} y={65} width={214} height={110}>
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedYear}

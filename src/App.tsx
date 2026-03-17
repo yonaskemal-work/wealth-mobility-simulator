@@ -124,7 +124,7 @@ function App() {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="absolute left-0 right-0 top-14 bottom-14 z-20
                        md:left-3 md:right-auto md:top-14 md:bottom-3 md:w-[290px]
-                       bg-[#0f172a]/95 backdrop-blur-xl shadow-2xl border border-white/10 overflow-hidden flex flex-col
+                       bg-[#0f172a]/85 backdrop-blur-xl shadow-2xl border border-white/10 overflow-hidden flex flex-col
                        rounded-none md:rounded-xl"
           >
             <button
@@ -172,7 +172,7 @@ function App() {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="absolute left-0 right-0 top-14 bottom-14 z-20
                        md:right-3 md:left-auto md:top-14 md:bottom-3 md:w-[290px]
-                       bg-[#0f172a]/95 backdrop-blur-xl shadow-2xl border border-white/10 overflow-hidden flex flex-col
+                       bg-[#0f172a]/85 backdrop-blur-xl shadow-2xl border border-white/10 overflow-hidden flex flex-col
                        rounded-none md:rounded-xl"
           >
             <button
